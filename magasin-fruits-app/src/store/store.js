@@ -26,6 +26,11 @@ const store = new Vuex.Store({
       }
     },
 
+    removeFromCart(state, itemId) {
+      state.cartItems = state.cartItems.filter(
+        (cartItem) => cartItem.id !== itemId
+      );
+    },
   },
 
   getters: {},
