@@ -31,6 +31,48 @@ const store = new Vuex.Store({
         (cartItem) => cartItem.id !== itemId
       );
     },
+    incrementQuantity(state, fruitId) {
+      if (state.fruitQuantities[fruitId]) {
+        Vue.set(
+          state.fruitQuantities,
+          fruitId,
+          state.fruitQuantities[fruitId] + 1
+        );
+
+        state.cartItems = state.cartItems.map((item) => {
+          if (item.id === fruitId) {
+            item.quantity++;
+          }
+          return item;
+        });
+      } else {
+        Vue.set(state.fruitQuantities, fruitId, 2);
+
+        const newItem = { ...state.fruits[fruitId], quantity: 1 };
+        state.cartItems.push(newItem);
+      }
+    },
+    decrementQuantity(state, fruitId) {
+      if (state.fruitQuantities[fruitId]) {
+        Vue.set(
+          state.fruitQuantities,
+          fruitId,
+          state.fruitQuantities[fruitId] - 1
+        );
+        if (state.fruitQuantities[fruitId] <= 0) {
+          delete state.fruitQuantities[fruitId];
+        }
+
+        state.cartItems = state.cartItems
+          .map((item) => {
+            if (item.id === fruitId) {
+              item.quantity--;
+            }
+            return item;
+          })
+          .filter((item) => item.quantity > 0);
+      }
+    },
   },
 
   getters: {},
