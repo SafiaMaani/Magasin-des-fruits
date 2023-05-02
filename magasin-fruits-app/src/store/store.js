@@ -75,7 +75,21 @@ const store = new Vuex.Store({
     },
   },
 
-  getters: {},
+  getters: {
+    getCartItemCount(state) {
+      // Get the total number of items in the cart
+      return state.cartItems.reduce((total, item) => total + item.quantity, 0);
+    },
+    getFruitQuantity: (state) => (fruitId) => {
+      return state.fruitQuantities[fruitId] || 1;
+    },
+    getCartTotal(state) {
+      return state.cartItems.reduce(
+        (total, item) => total + item.quantity * item.price,
+        0
+      );
+    },
+  },
 });
 
 export default store;
