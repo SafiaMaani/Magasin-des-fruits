@@ -28,6 +28,7 @@
               <a
                 class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 href="#"
+                @click.prevent="isPanierVisible = !isPanierVisible"
               >
                 <span class="ml-2 w-1/12"
                   ><img
@@ -40,5 +41,16 @@
         </div>
       </div>
     </nav>
+    <panierComponant v-if="isPanierVisible" class="flex items-center"/>
   </div>
 </template>
+
+<script>
+export default {
+    data() {
+      return {
+        isPanierVisible: false,
+      };
+    },
+};
+</script>
